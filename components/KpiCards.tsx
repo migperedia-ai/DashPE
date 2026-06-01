@@ -10,10 +10,10 @@ export function KpiCards({ tasks }: { tasks: EngineeringTask[] }) {
   const completion = total ? Math.round((completed / total) * 100) : 0;
 
   const cards = [
-    { label: "Críticos abiertos", value: critical, icon: AlertTriangle },
-    { label: "Pendientes tarde", value: late, icon: Clock3 },
-    { label: "Completados", value: completed, icon: CheckCircle2 },
-    { label: "Cumplimiento", value: `${completion}%`, icon: KanbanSquare },
+    { label: "OPEN CRITICALS", value: critical, icon: AlertTriangle },
+    { label: "OVERDUE TASKS", value: late, icon: Clock3 },
+    { label: "COMPLETED", value: completed, icon: CheckCircle2 },
+    { label: "COMPLETION RATE", value: `${completion}%`, icon: KanbanSquare },
   ];
 
   return (
