@@ -7,6 +7,10 @@ function assertConfig() {
   if (!SHEETS_WEB_APP_URL) {
     throw new Error("Missing SHEETS_WEB_APP_URL in environment variables.");
   }
+
+  if (!SHEETS_API_KEY) {
+    throw new Error("Missing SHEETS_API_KEY in environment variables.");
+  }
 }
 
 async function callSheets(action: string, payload: Record<string, unknown> = {}) {
