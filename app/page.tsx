@@ -26,7 +26,7 @@ export default async function Home() {
           </p>
         </div>
         <a href="/tv" className="rounded-2xl border border-white/20 px-5 py-3 text-center font-bold hover:bg-white/10">
-          TV Mode
+          PE Visual Management
         </a>
       </header>
 
