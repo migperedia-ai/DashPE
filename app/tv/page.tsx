@@ -15,7 +15,7 @@ export default async function TvMode() {
           <h1 className="text-6xl font-black">Process Engineering Control Task</h1>
         </div>
         <p className="rounded-full bg-white/10 px-5 py-3 text-xl">
-          ""
+
         </p>
       </div>
       <div className="space-y-6">
