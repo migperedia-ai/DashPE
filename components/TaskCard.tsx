@@ -42,7 +42,11 @@ export function TaskCard({ task }: { task: EngineeringTask }) {
         </span>
         <span className="flex items-center gap-1">
           <CalendarDays size={14} />
-          {left < 0 ? `${Math.abs(left)} días tarde` : `${left} días`}
+          {left === null
+  ? "No due date"
+  : left < 0
+    ? `${Math.abs(left)} days late`
+    : `${left} days`}
         </span>
       </div>
     </div>
