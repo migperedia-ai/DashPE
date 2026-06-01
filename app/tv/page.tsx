@@ -5,23 +5,51 @@ import { getTasks } from "@/lib/sheets";
 export const dynamic = "force-dynamic";
 
 export default async function TvMode() {
-  const tasks = await getTasks();
+  let tasks: any[] = [];
+  let error = "";
+
+  try {
+    tasks = await getTasks();
+  } catch (err) {
+    error = err instanceof Error ? err.message : "No se pudo cargar Google Sheets";
+  }
 
   return (
-    <main className="min-h-screen bg-slate-950 p-8 text-white">
-      <div className="mb-6 flex items-center justify-between">
+    <main className="min-h-screen bg-[radial-gradient(circle_at_top,#1e3a8a_0,#020617_45%)] p-6 text-white xl:p-10">
+      <header className="mb-8 flex flex-col justify-between gap-4 xl:flex-row xl:items-end">
         <div>
-          <p className="text-lg uppercase tracking-[0.45em] text-cyan-300">PE Visual Management</p>
-          <h1 className="text-6xl font-black">Process Engineering Control Task</h1>
-        </div>
-        <p className="rounded-full bg-white/10 px-5 py-3 text-xl">
+          <p className="text-sm uppercase tracking-[0.45em] text-cyan-300">
+            PE Visual Management
+          </p>
 
-        </p>
-      </div>
-      <div className="space-y-6">
-        <KpiCards tasks={tasks} />
-        <KanbanBoard initialTasks={tasks} />
-      </div>
+          <h1 className="mt-2 text-4xl font-black xl:text-6xl">
+            Process Engineering Control Task
+          </h1>
+
+          <p className="mt-3 max-w-3xl text-slate-300">
+            Visual monitoring of projects, HECN, improvements and engineering actions.
+          </p>
+        </div>
+
+        <a
+          href="/"
+          className="rounded-2xl border border-white/20 px-5 py-3 text-center font-bold hover:bg-white/10"
+        >
+          DASHBOARD MODE
+        </a>
+      </header>
+
+      {error ? (
+        <section className="rounded-3xl border border-red-500/40 bg-red-500/10 p-6">
+          <h2 className="text-2xl font-bold">Google Sheets connection error</h2>
+          <p className="mt-2 text-red-100">{error}</p>
+        </section>
+      ) : (
+        <div className="space-y-6">
+          <KpiCards tasks={tasks} />
+          <KanbanBoard initialTasks={tasks} />
+        </div>
+      )}
     </main>
   );
 }
