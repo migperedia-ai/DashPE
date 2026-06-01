@@ -1,0 +1,5 @@
+id,title,description,owner,area,project,priority,status,progress,dueDate,createdAt,updatedAt
+1,Double Tape 75,Eliminar tape doble y validar proceso estable,Parrish,PMP,75 inch launch,Critical,In Progress,80,2026-06-15,2026-06-01,2026-06-01
+2,AOI Validation,Validar parámetros y criterios de inspección,PE Team,AOI,Quality Gate,High,Validation,60,2026-06-18,2026-06-01,2026-06-01
+3,Scrap Reduction,Reducir scrap por material identificado incorrectamente,Quality,Production,Scrap Reduction,Medium,Backlog,25,2026-06-25,2026-06-01,2026-06-01
+4,Green Strap ID,Identificación con fleje verde pequeño para seguimiento,Warehouse,Material Control,Traceability,High,Backlog,10,2026-06-12,2026-06-01,2026-06-01
