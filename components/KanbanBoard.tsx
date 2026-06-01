@@ -16,6 +16,7 @@ import { TaskCard } from "./TaskCard";
 
 export function KanbanBoard({ initialTasks }: { initialTasks: EngineeringTask[] }) {
   const [tasks, setTasks] = useState(initialTasks);
+
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 8 } })
   );
@@ -50,7 +51,7 @@ export function KanbanBoard({ initialTasks }: { initialTasks: EngineeringTask[] 
 
   return (
     <DndContext sensors={sensors} onDragEnd={onDragEnd}>
-      <div className="grid grid-cols-1 gap-4 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-5 xl:grid-cols-4">
         {statuses.map((status, index) => (
           <Column
             key={status}
@@ -75,51 +76,92 @@ function Column({
 }) {
   const { setNodeRef, isOver } = useDroppable({ id: status });
 
-  const columnStyles: Record<string, string> = {
-    "In Queue": "from-red-400/70 via-red-300/20 to-transparent border-red-400/30",
-    "In Progress": "from-orange-300/70 via-orange-300/20 to-transparent border-orange-300/30",
-    Validation: "from-cyan-300/70 via-cyan-300/20 to-transparent border-cyan-300/30",
-    Completed: "from-emerald-300/70 via-emerald-300/20 to-transparent border-emerald-300/30",
+  const columnTheme: Record<
+    string,
+    {
+      border: string;
+      glow: string;
+      accent: string;
+      badge: string;
+      dot: string;
+    }
+  > = {
+    "In Queue": {
+      border: "border-red-400/40",
+      glow: "shadow-[0_0_40px_rgba(255,77,109,0.14)]",
+      accent: "from-red-400/90 via-red-300/35 to-transparent",
+      badge: "bg-red-400/10 text-red-100 border-red-300/25",
+      dot: "bg-red-300",
+    },
+    "In Progress": {
+      border: "border-orange-300/40",
+      glow: "shadow-[0_0_40px_rgba(255,159,28,0.14)]",
+      accent: "from-orange-300/90 via-orange-300/35 to-transparent",
+      badge: "bg-orange-400/10 text-orange-100 border-orange-300/25",
+      dot: "bg-orange-300",
+    },
+    Validation: {
+      border: "border-cyan-300/40",
+      glow: "shadow-[0_0_40px_rgba(0,229,255,0.14)]",
+      accent: "from-cyan-300/90 via-cyan-300/35 to-transparent",
+      badge: "bg-cyan-400/10 text-cyan-100 border-cyan-300/25",
+      dot: "bg-cyan-300",
+    },
+    Completed: {
+      border: "border-emerald-300/40",
+      glow: "shadow-[0_0_40px_rgba(0,255,153,0.14)]",
+      accent: "from-emerald-300/90 via-emerald-300/35 to-transparent",
+      badge: "bg-emerald-400/10 text-emerald-100 border-emerald-300/25",
+      dot: "bg-emerald-300",
+    },
   };
+
+  const theme = columnTheme[status] ?? columnTheme["In Queue"];
 
   return (
     <div
       ref={setNodeRef}
       className={`
+        group
         animated-border
+        neon-pulse
         fade-up
         relative
         min-h-[620px]
         overflow-hidden
         rounded-3xl
         border
-        bg-[#0d1b2e]/85
+        bg-[#0d1b2e]/90
         p-4
         backdrop-blur-md
         transition-all
         duration-500
-        ${columnStyles[status]}
+        ${theme.border}
+        ${theme.glow}
         ${
           isOver
-            ? "scale-[1.015] border-cyan-300/70 bg-[#102840]/95 shadow-[0_0_45px_rgba(0,229,255,0.20)]"
-            : "shadow-[0_0_30px_rgba(0,229,255,0.08)]"
+            ? "scale-[1.018] bg-[#102840]/95 shadow-[0_0_65px_rgba(0,229,255,0.26)]"
+            : "hover:-translate-y-1 hover:bg-[#102840]/85"
         }
       `}
       style={{
         animationDelay: `${index * 140}ms`,
       }}
     >
-      <div className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-cyan-300/10 blur-3xl" />
+      <div className="pointer-events-none absolute -right-20 -top-20 h-48 w-48 rounded-full bg-cyan-300/10 blur-3xl transition-all duration-700 group-hover:bg-cyan-300/15" />
+
+      <div className="pointer-events-none absolute -bottom-24 -left-24 h-56 w-56 rounded-full bg-emerald-300/5 blur-3xl" />
 
       <div
         className={`
+          pointer-events-none
           absolute
           left-0
           top-0
           h-[2px]
           w-full
           bg-gradient-to-r
-          ${columnStyles[status]}
+          ${theme.accent}
         `}
       />
 
@@ -128,10 +170,25 @@ function Column({
           <p className="text-[10px] uppercase tracking-[0.35em] text-white/40">
             Engineering Status
           </p>
-          <h2 className="mt-1 text-xl font-black text-white">{status}</h2>
+
+          <div className="mt-1 flex items-center gap-2">
+            <span className={`breathe h-2.5 w-2.5 rounded-full ${theme.dot}`} />
+            <h2 className="text-xl font-black text-white">{status}</h2>
+          </div>
         </div>
 
-        <span className="breathe rounded-full border border-white/10 bg-white/10 px-3 py-1 text-sm font-bold text-white">
+        <span
+          className={`
+            breathe
+            rounded-full
+            border
+            px-3
+            py-1
+            text-sm
+            font-bold
+            ${theme.badge}
+          `}
+        >
           {tasks.length}
         </span>
       </div>
@@ -172,7 +229,7 @@ function DraggableCard({ task }: { task: EngineeringTask }) {
         active:cursor-grabbing
         ${
           isDragging
-            ? "z-50 scale-[1.03] opacity-80 shadow-[0_0_40px_rgba(0,229,255,0.25)]"
+            ? "z-50 scale-[1.035] opacity-85 shadow-[0_0_55px_rgba(0,229,255,0.30)]"
             : "hover:-translate-y-1"
         }
       `}
