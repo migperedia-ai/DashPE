@@ -20,7 +20,7 @@ export default async function Home() {
       <header className="mb-8 flex flex-col justify-between gap-4 xl:flex-row xl:items-end">
         <div>
           <p className="text-sm uppercase tracking-[0.45em] text-cyan-300">Visual Management</p>
-          <h1 className="mt-2 text-4xl font-black xl:text-6xl">Engineering Control Tower</h1>
+          <h1 className="mt-2 text-4xl font-black xl:text-6xl">Process Engineering Control Task</h1>
           <p className="mt-3 max-w-3xl text-slate-300">
             Kanban para pendientes de ingeniería con base de datos en Google Sheets.
           </p>
