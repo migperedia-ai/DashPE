@@ -4,7 +4,10 @@ import { daysLeft } from "@/lib/utils";
 
 export function KpiCards({ tasks }: { tasks: EngineeringTask[] }) {
   const critical = tasks.filter((t) => t.priority === "Critical" && t.status !== "Completed").length;
-  const late = tasks.filter((t) => t.status !== "Completed" && daysLeft(t.dueDate) < 0).length;
+  const late = tasks.filter((t) => {
+  const left = daysLeft(t.dueDate);
+  return t.status !== "Completed" && left !== null && left < 0;
+}).length;
   const completed = tasks.filter((t) => t.status === "Completed").length;
   const total = tasks.length;
   const completion = total ? Math.round((completed / total) * 100) : 0;
