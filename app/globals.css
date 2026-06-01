@@ -3,7 +3,14 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: dark;
+  --background: #07111f;
+  --card: #0d1b2e;
+  --card-2: #102840;
+  --cyan: #00e5ff;
+  --cyan-soft: #00c8e8;
+  --success: #00ff99;
+  --danger: #ff4d6d;
+  --warning: #ffb703;
 }
 
 body {
