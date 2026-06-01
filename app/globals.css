@@ -165,3 +165,53 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(0, 229, 255, 0.6);
 }
+@keyframes floatSoft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes borderSweep {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: .75; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.04); }
+}
+
+.float-soft {
+  animation: floatSoft 5s ease-in-out infinite;
+}
+
+.breathe {
+  animation: breathe 3s ease-in-out infinite;
+}
+
+.animated-border {
+  position: relative;
+  overflow: hidden;
+}
+
+.animated-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(0, 229, 255, .7),
+    transparent,
+    rgba(0, 255, 153, .45),
+    transparent
+  );
+  background-size: 200% 200%;
+  animation: borderSweep 5s linear infinite;
+  pointer-events: none;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
