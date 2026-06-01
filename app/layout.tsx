@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Engineering Control Tower",
-  description: "Kanban visual management dashboard powered by Google Sheets",
+  title: "Process Engineering Control Task",
+  description: "Kanban visual management monitoring of projects, HECN, improvements and engineering actions.",
 };
 
 export default function RootLayout({
