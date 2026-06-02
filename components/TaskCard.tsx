@@ -2,6 +2,14 @@ import { CalendarDays, UserRound } from "lucide-react";
 import type { EngineeringTask } from "@/lib/types";
 import { daysLeft, healthColor } from "@/lib/utils";
 
+const defaultTheme = {
+  border: "border-cyan-300/40",
+  bg: "bg-[#0d1b2e]/90",
+  badge: "bg-cyan-400/10 text-cyan-100 border-cyan-300/25",
+  glow: "shadow-[0_0_40px_rgba(0,229,255,0.14)]",
+  progress: "from-cyan-300 to-cyan-200",
+};
+
 const priorityClasses = {
   Critical: {
     border: "border-red-400/40",
@@ -35,41 +43,44 @@ const priorityClasses = {
 
 export function TaskCard({ task }: { task: EngineeringTask }) {
   const left = daysLeft(task.dueDate);
-  const theme = priorityClasses[task.priority];
 
-return (
-  <div
-    className={`
-      group
-      animated-border
-      neon-pulse
-      relative
-      overflow-hidden
-      rounded-3xl
-      border
-      p-4
-      backdrop-blur-md
-      transition-all
-      duration-500
-      hover:-translate-y-1
-      hover:scale-[1.01]
+  const theme =
+    priorityClasses[task.priority as keyof typeof priorityClasses] ??
+    defaultTheme;
 
-      ${theme?.border ?? "border-cyan-300/40"}
-      ${theme?.bg ?? "bg-[#0d1b2e]/90"}
-      ${theme?.glow ?? "shadow-[0_0_40px_rgba(0,229,255,0.14)]"}
-    `}
-  >
+  const progress = Number(task.progress || 0);
+
+  return (
+    <div
+      className={`
+        group
+        animated-border
+        neon-pulse
+        relative
+        overflow-hidden
+        rounded-3xl
+        border
+        p-4
+        backdrop-blur-md
+        transition-all
+        duration-500
+        hover:-translate-y-1
+        hover:scale-[1.01]
+        ${theme.border}
+        ${theme.bg}
+        ${theme.glow}
+      `}
     >
       <div className="pointer-events-none absolute -right-12 -top-12 h-28 w-28 rounded-full bg-white/[0.04] blur-3xl transition-all duration-700 group-hover:bg-white/[0.08]" />
 
       <div className="mb-3 flex items-start justify-between gap-3">
         <div>
           <p className="text-[10px] uppercase tracking-[0.28em] text-white/40">
-            {task.area}
+            {task.area || "AREA"}
           </p>
 
           <h3 className="mt-1 text-lg font-bold leading-tight text-white">
-            {task.title}
+            {task.title || "Untitled Task"}
           </h3>
         </div>
 
@@ -86,12 +97,12 @@ return (
       </div>
 
       <p className="mb-4 line-clamp-2 text-sm text-white/70">
-        {task.description}
+        {task.description || "No description"}
       </p>
 
       <div className="mb-4 flex flex-wrap gap-2 text-xs">
         <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-white/70">
-          {task.project}
+          {task.project || "No Project"}
         </span>
 
         <span
@@ -104,14 +115,14 @@ return (
             ${theme.badge}
           `}
         >
-          {task.priority}
+          {task.priority || "No Priority"}
         </span>
       </div>
 
       <div className="mb-4">
         <div className="mb-1 flex items-center justify-between text-[11px] text-white/40">
           <span>Progress</span>
-          <span>{task.progress}%</span>
+          <span>{progress}%</span>
         </div>
 
         <div className="h-2 overflow-hidden rounded-full bg-white/10">
@@ -125,7 +136,7 @@ return (
               duration-700
             `}
             style={{
-              width: `${Math.max(0, Math.min(task.progress, 100))}%`,
+              width: `${Math.max(0, Math.min(progress, 100))}%`,
             }}
           />
         </div>
@@ -134,7 +145,7 @@ return (
       <div className="flex items-center justify-between text-xs text-white/60">
         <span className="flex items-center gap-2">
           <UserRound size={14} />
-          {task.owner}
+          {task.owner || "No Owner"}
         </span>
 
         <span className="flex items-center gap-2">
@@ -143,8 +154,8 @@ return (
           {left === null
             ? "No due date"
             : left < 0
-            ? `${Math.abs(left)} days late`
-            : `${left} days`}
+              ? `${Math.abs(left)} days late`
+              : `${left} days`}
         </span>
       </div>
     </div>
