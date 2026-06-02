@@ -156,35 +156,36 @@ function Column({
     dot: "bg-cyan-300",
   };
 
-  return (
-    <div
-      ref={setNodeRef}
-      className={`
-        group
-        animated-border
-        neon-pulse
-        fade-up
-        relative
-        min-h-[620px]
-        overflow-hidden
-        rounded-3xl
-        border
-        bg-[#0d1b2e]/90
-        p-4
-        backdrop-blur-md
-        transition-all
-        duration-500
-        ${theme.border}
-        ${theme.glow}
-        ${
-          isOver
-            ? "scale-[1.018] bg-[#102840]/95 shadow-[0_0_65px_rgba(0,229,255,0.26)]"
-            : "hover:-translate-y-1 hover:bg-[#102840]/85"
-        }
-      `}
-      style={{
-        animationDelay: `${index * 140}ms`,
-      }}
+return (
+  <div
+    ref={setNodeRef}
+    className={`
+      group
+      animated-border
+      neon-pulse
+      fade-up
+      relative
+      min-h-[620px]
+      overflow-hidden
+      rounded-3xl
+      border
+      bg-[#0d1b2e]/90
+      p-4
+      backdrop-blur-md
+      transition-all
+      duration-500
+      ${theme?.border ?? "border-cyan-300/40"}
+      ${theme?.glow ?? "shadow-[0_0_40px_rgba(0,229,255,0.14)]"}
+      ${
+        isOver
+          ? "scale-[1.018] bg-[#102840]/95 shadow-[0_0_65px_rgba(0,229,255,0.26)]"
+          : "hover:-translate-y-1 hover:bg-[#102840]/85"
+      }
+    `}
+    style={{
+      animationDelay: `${index * 140}ms`,
+    }}
+  >
     >
       <div className="pointer-events-none absolute -right-20 -top-20 h-48 w-48 rounded-full bg-cyan-300/10 blur-3xl" />
 

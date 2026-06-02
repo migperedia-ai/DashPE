@@ -37,26 +37,28 @@ export function TaskCard({ task }: { task: EngineeringTask }) {
   const left = daysLeft(task.dueDate);
   const theme = priorityClasses[task.priority];
 
-  return (
-    <div
-      className={`
-        group
-        animated-border
-        neon-pulse
-        relative
-        overflow-hidden
-        rounded-3xl
-        border
-        p-4
-        backdrop-blur-md
-        transition-all
-        duration-500
-        hover:-translate-y-1
-        hover:scale-[1.01]
-        ${theme.border}
-        ${theme.bg}
-        ${theme.glow}
-      `}
+return (
+  <div
+    className={`
+      group
+      animated-border
+      neon-pulse
+      relative
+      overflow-hidden
+      rounded-3xl
+      border
+      p-4
+      backdrop-blur-md
+      transition-all
+      duration-500
+      hover:-translate-y-1
+      hover:scale-[1.01]
+
+      ${theme?.border ?? "border-cyan-300/40"}
+      ${theme?.bg ?? "bg-[#0d1b2e]/90"}
+      ${theme?.glow ?? "shadow-[0_0_40px_rgba(0,229,255,0.14)]"}
+    `}
+  >
     >
       <div className="pointer-events-none absolute -right-12 -top-12 h-28 w-28 rounded-full bg-white/[0.04] blur-3xl transition-all duration-700 group-hover:bg-white/[0.08]" />
 
