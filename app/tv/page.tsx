@@ -23,11 +23,11 @@ export default async function TvMode() {
               PE Visual Management
             </p>
 
-            <h1 className="mt-1 text-4xl font-black leading-none">
+            <h1 className="mt-1 text-3xl font-black leading-none">
               Process Engineering Control Task
             </h1>
 
-            <p className="mt-2 max-w-3xl text-sm text-slate-300">
+            <p className="mt-1 max-w-3xl text-sm text-slate-4000">
               Visual monitoring of projects, HECN, improvements and engineering actions.
             </p>
           </div>
