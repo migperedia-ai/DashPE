@@ -23,45 +23,45 @@ export function KpiCards({ tasks }: { tasks: EngineeringTask[] }) {
       value: critical,
       icon: AlertTriangle,
       border: "border-red-400/40",
-      glow: "shadow-[0_0_35px_rgba(255,77,109,0.20)]",
+      glow: "shadow-[0_0_25px_rgba(255,77,109,0.14)]",
       iconColor: "text-red-300",
       accent: "from-red-400/80 via-red-300/30 to-transparent",
-      valueGlow: "drop-shadow-[0_0_14px_rgba(255,77,109,0.35)]",
+      valueGlow: "drop-shadow-[0_0_10px_rgba(255,77,109,0.28)]",
     },
     {
       label: "OVERDUE TASKS",
       value: late,
       icon: Clock3,
       border: "border-orange-300/40",
-      glow: "shadow-[0_0_35px_rgba(255,159,28,0.20)]",
+      glow: "shadow-[0_0_25px_rgba(255,159,28,0.14)]",
       iconColor: "text-orange-300",
       accent: "from-orange-300/80 via-orange-300/30 to-transparent",
-      valueGlow: "drop-shadow-[0_0_14px_rgba(255,159,28,0.35)]",
+      valueGlow: "drop-shadow-[0_0_10px_rgba(255,159,28,0.28)]",
     },
     {
       label: "COMPLETED",
       value: completed,
       icon: CheckCircle2,
       border: "border-emerald-300/40",
-      glow: "shadow-[0_0_35px_rgba(0,255,153,0.20)]",
+      glow: "shadow-[0_0_25px_rgba(0,255,153,0.14)]",
       iconColor: "text-emerald-300",
       accent: "from-emerald-300/80 via-emerald-300/30 to-transparent",
-      valueGlow: "drop-shadow-[0_0_14px_rgba(0,255,153,0.35)]",
+      valueGlow: "drop-shadow-[0_0_10px_rgba(0,255,153,0.28)]",
     },
     {
       label: "COMPLETION RATE",
       value: `${completion}%`,
       icon: KanbanSquare,
       border: "border-cyan-300/40",
-      glow: "shadow-[0_0_35px_rgba(0,229,255,0.20)]",
+      glow: "shadow-[0_0_25px_rgba(0,229,255,0.14)]",
       iconColor: "text-cyan-300",
       accent: "from-cyan-300/80 via-cyan-300/30 to-transparent",
-      valueGlow: "drop-shadow-[0_0_14px_rgba(0,229,255,0.35)]",
+      valueGlow: "drop-shadow-[0_0_10px_rgba(0,229,255,0.28)]",
     },
   ];
 
   return (
-    <div className="grid grid-cols-2 gap-4 xl:grid-cols-4">
+    <div className="grid grid-cols-2 gap-3 xl:grid-cols-4">
       {cards.map((card, index) => {
         const Icon = card.icon;
 
@@ -75,22 +75,22 @@ export function KpiCards({ tasks }: { tasks: EngineeringTask[] }) {
               neon-pulse
               fade-up
               relative
+              h-[120px]
               overflow-hidden
-              rounded-3xl
+              rounded-2xl
               border
               bg-[#0d1b2e]/90
-              p-5
+              p-3
               backdrop-blur-md
               ${card.border}
               ${card.glow}
               transition-all
               duration-500
-              hover:-translate-y-1
-              hover:scale-[1.015]
+              hover:-translate-y-0.5
               hover:bg-[#102840]/95
             `}
             style={{
-              animationDelay: `${index * 120}ms`,
+              animationDelay: `${index * 100}ms`,
             }}
           >
             <div
@@ -107,44 +107,44 @@ export function KpiCards({ tasks }: { tasks: EngineeringTask[] }) {
               `}
             />
 
-            <div className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-white/5 blur-3xl transition-all duration-700 group-hover:bg-white/10" />
+            <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-white/5 blur-3xl transition-all duration-700 group-hover:bg-white/10" />
 
             <div className="flex items-center justify-between">
-              <p className="text-xs uppercase tracking-[0.30em] text-white/60">
+              <p className="text-[10px] uppercase tracking-[0.25em] text-white/60">
                 {card.label}
               </p>
 
               <div
                 className={`
                   breathe
-                  rounded-2xl
+                  rounded-xl
                   border
                   border-white/10
                   bg-white/5
-                  p-2
+                  p-1.5
                   ${card.iconColor}
                 `}
               >
-                <Icon size={24} />
+                <Icon size={18} />
               </div>
             </div>
 
             <p
               className={`
-                mt-4
-                text-6xl
+                mt-2
+                text-3xl
                 font-black
+                leading-none
                 text-white
                 transition-all
                 duration-500
-                group-hover:tracking-wide
                 ${card.valueGlow}
               `}
             >
               {card.value}
             </p>
 
-            <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-white/10">
+            <div className="mt-3 h-1 overflow-hidden rounded-full bg-white/10">
               <div
                 className={`
                   h-full
