@@ -6,20 +6,6 @@ import { AutoRefresh } from "@/components/AutoRefresh";
 
 export const dynamic = "force-dynamic";
 
-function AutoRefresh() {
-  return (
-    <script
-      dangerouslySetInnerHTML={{
-        __html: `
-          setInterval(function() {
-            window.location.reload();
-          }, 60000);
-        `,
-      }}
-    />
-  );
-}
-
 export default async function Home() {
   let tasks: any[] = [];
   let error = "";
