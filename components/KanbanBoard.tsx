@@ -123,7 +123,7 @@ function Column({
       ref={setNodeRef}
       className={`
   group relative
-  flex flex-col justify-start
+  flex flex-col
   min-h-fit
   max-h-[calc(100vh-260px)]
   overflow-hidden rounded-2xl border bg-[#0d1b2e]/90 p-2.5
@@ -136,7 +136,9 @@ function Column({
       : "hover:-translate-y-0.5 hover:bg-[#102840]/85"
   }
 `}
-      style={{ animationDelay: `${index * 120}ms` }}
+      style={{
+  animation: "autoscroll 30s linear infinite"
+}}
     >
       <div className="pointer-events-none absolute -right-16 -top-16 h-32 w-32 rounded-full bg-cyan-300/10 blur-3xl" />
 
@@ -169,7 +171,7 @@ function Column({
         </span>
       </div>
 
-      <div className="relative z-10 space-y-2 overflow-y-auto pr-1">
+      <div className="relative z-10 flex-1 space-y-2 overflow-y-auto pr-1 scroll-smooth">
         {tasks.length === 0 ? (
           <div className="rounded-xl border border-dashed border-white/10 bg-white/[0.03] px-3 py-3 text-center text-[11px] text-white/40">
             No Tasks
