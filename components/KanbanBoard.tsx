@@ -136,11 +136,6 @@ function Column({
       : "hover:-translate-y-0.5 hover:bg-[#102840]/85"
   }
 `}
-          isOver
-            ? "scale-[1.01] bg-[#102840]/95 shadow-[0_0_45px_rgba(0,229,255,0.20)]"
-            : "hover:-translate-y-0.5 hover:bg-[#102840]/85"
-        }
-      `}
       style={{ animationDelay: `${index * 120}ms` }}
     >
       <div className="pointer-events-none absolute -right-16 -top-16 h-32 w-32 rounded-full bg-cyan-300/10 blur-3xl" />

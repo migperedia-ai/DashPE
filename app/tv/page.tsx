@@ -33,11 +33,11 @@ export default async function TvMode() {
           </div>
 
           <a
-            href="/"
-            className="rounded-xl border border-white/20 px-6 py-3 text-sm font-bold hover:bg-white/10"
-          >
-            DASHBOARD MODE
-          </a>
+  href="/"
+  className="rounded-xl border border-white/20 px-6 py-3 text-sm font-bold hover:bg-white/10"
+>
+  DASHBOARD MODE
+</a>
         </header>
 
         {error ? (
