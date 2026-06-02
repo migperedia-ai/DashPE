@@ -58,7 +58,7 @@ export function KanbanBoard({
 
   return (
     <DndContext sensors={sensors} onDragEnd={onDragEnd}>
-      <div className="grid grid-cols-1 gap-4 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 xl:grid-cols-4 items-start">
         {statuses.map((status, index) => (
           <Column
             key={status}
@@ -122,20 +122,11 @@ function Column({
     <div
       ref={setNodeRef}
       className={`
-        group
-        animated-border
-        neon-pulse
-        fade-up
-        relative
-        h-[calc(100vh-280px)]
-        overflow-hidden
-        rounded-3xl
-        border
-        bg-[#0d1b2e]/90
-        p-3
-        backdrop-blur-md
-        transition-all
-        duration-500
+        group animated-border neon-pulse fade-up relative
+        flex flex-col
+        min-h-[550px]
+        overflow-hidden rounded-3xl border bg-[#0d1b2e]/90 p-3
+        backdrop-blur-md transition-all duration-500
         ${theme.border}
         ${theme.glow}
         ${
@@ -150,13 +141,7 @@ function Column({
 
       <div
         className={`
-          pointer-events-none
-          absolute
-          left-0
-          top-0
-          h-[2px]
-          w-full
-          bg-gradient-to-r
+          pointer-events-none absolute left-0 top-0 h-[2px] w-full bg-gradient-to-r
           ${theme.accent}
         `}
       />
@@ -175,13 +160,7 @@ function Column({
 
         <span
           className={`
-            breathe
-            rounded-full
-            border
-            px-2.5
-            py-0.5
-            text-xs
-            font-bold
+            breathe rounded-full border px-2.5 py-0.5 text-xs font-bold
             ${theme.badge}
           `}
         >
@@ -189,7 +168,7 @@ function Column({
         </span>
       </div>
 
-      <div className="relative z-10 max-h-[calc(100vh-360px)] space-y-2 overflow-y-auto pr-1">
+      <div className="relative z-10 flex-1 space-y-2 overflow-y-auto pr-1">
         {tasks.length === 0 ? (
           <div className="rounded-2xl border border-dashed border-white/10 bg-white/[0.03] p-4 text-center text-xs text-white/40">
             No Tasks
@@ -219,10 +198,7 @@ function DraggableCard({ task }: { task: EngineeringTask }) {
       {...listeners}
       {...attributes}
       className={`
-        cursor-grab
-        transition-all
-        duration-300
-        active:cursor-grabbing
+        cursor-grab transition-all duration-300 active:cursor-grabbing
         ${
           isDragging
             ? "z-50 scale-[1.025] opacity-85 shadow-[0_0_45px_rgba(0,229,255,0.26)]"
