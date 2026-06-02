@@ -186,7 +186,6 @@ return (
       animationDelay: `${index * 140}ms`,
     }}
   >
-    >
       <div className="pointer-events-none absolute -right-20 -top-20 h-48 w-48 rounded-full bg-cyan-300/10 blur-3xl" />
 
       <div className="pointer-events-none absolute -bottom-24 -left-24 h-56 w-56 rounded-full bg-emerald-300/5 blur-3xl" />
