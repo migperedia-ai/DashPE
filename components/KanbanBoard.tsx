@@ -116,7 +116,7 @@ function Column({
   };
 
   const columnTheme: Record<string, typeof defaultTheme> = {
-    "In Queue": {
+    "Backlog": {
       border: "border-red-400/40",
       glow: "shadow-[0_0_28px_rgba(255,77,109,0.12)]",
       accent: "from-red-400/90 via-red-300/35 to-transparent",

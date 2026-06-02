@@ -20,7 +20,7 @@ export default async function TvMode() {
         <header className="mb-4 flex items-end justify-between gap-4">
           <div>
             <p className="text-lg font-semibold uppercase tracking-[0.55em] text-cyan-300">
-              PE Visual Management
+              PE Visual Management                        
             </p>
 
             <h1 className="mt-2 text-6xl font-black leading-none tracking-tight">

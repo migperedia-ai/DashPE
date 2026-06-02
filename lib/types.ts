@@ -1,5 +1,5 @@
 export type Priority = "Critical" | "High" | "Medium" | "Low";
-export type Status = "In Queue" | "In Progress" | "Validation" | "Completed";
+export type Status = "Backlog" | "In Progress" | "Validation" | "Completed";
 
 export type EngineeringTask = {
   id: string;

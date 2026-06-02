@@ -1,7 +1,7 @@
 import type { EngineeringTask, Priority } from "./types";
 
 export const priorities: Priority[] = ["Critical", "High", "Medium", "Low"];
-export const statuses = ["In Queue", "In Progress", "Validation", "Completed"] as const;
+export const statuses = ["Backlog", "In Progress", "Validation", "Completed"] as const;
 
 export function cn(...classes: Array<string | false | null | undefined>) {
   return classes.filter(Boolean).join(" ");
