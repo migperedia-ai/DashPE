@@ -92,7 +92,7 @@ export function KpiCards({ tasks }: { tasks: EngineeringTask[] }) {
             <div className="pointer-events-none absolute -right-6 -top-6 h-16 w-16 rounded-full bg-white/5 blur-2xl transition-all duration-700 group-hover:bg-white/10" />
 
             <div className="relative z-10 flex items-center justify-between gap-2">
-              <p className="text-[8px] uppercase tracking-[0.22em] text-white/60">
+              <p className="text-sm uppercase tracking-[0.22em] text-white/60">
                 {card.label}
               </p>
 
@@ -108,7 +108,7 @@ export function KpiCards({ tasks }: { tasks: EngineeringTask[] }) {
 
             <p
               className={`
-                relative z-10 mt-1.5 text-2xl font-black leading-none text-white
+                relative z-10 mt-1.5 text-5xl font-black leading-none text-white
                 transition-all duration-500
                 ${card.valueGlow}
               `}

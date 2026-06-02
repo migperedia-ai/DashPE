@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   DndContext,
   DragEndEvent,
@@ -82,6 +82,30 @@ function Column({
   index: number;
 }) {
   const { setNodeRef, isOver } = useDroppable({ id: status });
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    let direction = 1;
+
+    const timer = setInterval(() => {
+      if (el.scrollHeight <= el.clientHeight) return;
+
+      el.scrollTop += direction;
+
+      if (el.scrollTop + el.clientHeight >= el.scrollHeight - 5) {
+        direction = -1;
+      }
+
+      if (el.scrollTop <= 0) {
+        direction = 1;
+      }
+    }, 40);
+
+    return () => clearInterval(timer);
+  }, [tasks]);
 
   const defaultTheme = {
     border: "border-cyan-300/40",
@@ -122,23 +146,21 @@ function Column({
     <div
       ref={setNodeRef}
       className={`
-  group relative
-  flex flex-col
-  min-h-fit
-  max-h-[calc(100vh-260px)]
-  overflow-hidden rounded-2xl border bg-[#0d1b2e]/90 p-2.5
-  backdrop-blur-md transition-all duration-500
-  ${theme.border}
-  ${theme.glow}
-  ${
-    isOver
-      ? "scale-[1.01] bg-[#102840]/95 shadow-[0_0_45px_rgba(0,229,255,0.20)]"
-      : "hover:-translate-y-0.5 hover:bg-[#102840]/85"
-  }
-`}
-      style={{
-  animation: "autoscroll 30s linear infinite"
-}}
+        group relative
+        flex flex-col
+        min-h-fit
+        max-h-[calc(100vh-260px)]
+        overflow-hidden rounded-2xl border bg-[#0d1b2e]/90 p-2.5
+        backdrop-blur-md transition-all duration-500
+        ${theme.border}
+        ${theme.glow}
+        ${
+          isOver
+            ? "scale-[1.01] bg-[#102840]/95 shadow-[0_0_45px_rgba(0,229,255,0.20)]"
+            : "hover:-translate-y-0.5 hover:bg-[#102840]/85"
+        }
+      `}
+      style={{ animationDelay: `${index * 120}ms` }}
     >
       <div className="pointer-events-none absolute -right-16 -top-16 h-32 w-32 rounded-full bg-cyan-300/10 blur-3xl" />
 
@@ -171,7 +193,10 @@ function Column({
         </span>
       </div>
 
-      <div className="relative z-10 flex-1 space-y-2 overflow-y-auto pr-1 scroll-smooth">
+      <div
+        ref={scrollRef}
+        className="relative z-10 flex-1 space-y-2 overflow-y-auto pr-1 scroll-smooth"
+      >
         {tasks.length === 0 ? (
           <div className="rounded-xl border border-dashed border-white/10 bg-white/[0.03] px-3 py-3 text-center text-[11px] text-white/40">
             No Tasks
