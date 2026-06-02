@@ -30,9 +30,7 @@ export function KanbanBoard({
 
   const grouped = useMemo(() => {
     return statuses.reduce((acc, status) => {
-      acc[status] = sortTasks(
-        tasks.filter((task) => task.status === status)
-      );
+      acc[status] = sortTasks(tasks.filter((task) => task.status === status));
       return acc;
     }, {} as Record<Status, EngineeringTask[]>);
   }, [tasks]);
@@ -44,33 +42,28 @@ export function KanbanBoard({
     if (!newStatus || !statuses.includes(newStatus)) return;
 
     const oldTask = tasks.find((task) => task.id === taskId);
-
     if (!oldTask || oldTask.status === newStatus) return;
 
     setTasks((current) =>
       current.map((task) =>
-        task.id === taskId
-          ? { ...task, status: newStatus }
-          : task
+        task.id === taskId ? { ...task, status: newStatus } : task
       )
     );
 
     await fetch(`/api/tasks/${taskId}`, {
       method: "PATCH",
-      body: JSON.stringify({
-        status: newStatus,
-      }),
+      body: JSON.stringify({ status: newStatus }),
     });
   }
 
   return (
     <DndContext sensors={sensors} onDragEnd={onDragEnd}>
-      <div className="grid grid-cols-1 gap-5 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 xl:grid-cols-4">
         {statuses.map((status, index) => (
           <Column
             key={status}
             status={status}
-            tasks={grouped[status]}
+            tasks={grouped[status] ?? []}
             index={index}
           />
         ))}
@@ -88,67 +81,9 @@ function Column({
   tasks: EngineeringTask[];
   index: number;
 }) {
-  const { setNodeRef, isOver } = useDroppable({
-    id: status,
-  });
+  const { setNodeRef, isOver } = useDroppable({ id: status });
 
-  const columnTheme: Record<
-    string,
-    {
-      border: string;
-      glow: string;
-      accent: string;
-      badge: string;
-      dot: string;
-    }
-  > = {
-    "In Queue": {
-      border: "border-red-400/40",
-      glow: "shadow-[0_0_40px_rgba(255,77,109,0.14)]",
-      accent:
-        "from-red-400/90 via-red-300/35 to-transparent",
-      badge:
-        "bg-red-400/10 text-red-100 border-red-300/25",
-      dot: "bg-red-300",
-    },
-
-    "In Progress": {
-      border: "border-orange-300/40",
-      glow:
-        "shadow-[0_0_40px_rgba(255,159,28,0.14)]",
-      accent:
-        "from-orange-300/90 via-orange-300/35 to-transparent",
-      badge:
-        "bg-orange-400/10 text-orange-100 border-orange-300/25",
-      dot: "bg-orange-300",
-    },
-
-    Validation: {
-      border: "border-cyan-300/40",
-      glow:
-        "shadow-[0_0_40px_rgba(0,229,255,0.14)]",
-      accent:
-        "from-cyan-300/90 via-cyan-300/35 to-transparent",
-      badge:
-        "bg-cyan-400/10 text-cyan-100 border-cyan-300/25",
-      dot: "bg-cyan-300",
-    },
-
-    Completed: {
-      border: "border-emerald-300/40",
-      glow:
-        "shadow-[0_0_40px_rgba(0,255,153,0.14)]",
-      accent:
-        "from-emerald-300/90 via-emerald-300/35 to-transparent",
-      badge:
-        "bg-emerald-400/10 text-emerald-100 border-emerald-300/25",
-      dot: "bg-emerald-300",
-    },
-  };
-
-  const theme =
-  columnTheme[String(status)] ??
-  {
+  const defaultTheme = {
     border: "border-cyan-300/40",
     glow: "shadow-[0_0_40px_rgba(0,229,255,0.14)]",
     accent: "from-cyan-300/90 via-cyan-300/35 to-transparent",
@@ -156,42 +91,66 @@ function Column({
     dot: "bg-cyan-300",
   };
 
-return (
-  <div
-    ref={setNodeRef}
-    className={`
-      group
-      animated-border
-      neon-pulse
-      fade-up
-      relative
-      h-[calc(100vh-240px)]
-      overflow-hidden
-      rounded-3xl
-      border
-      bg-[#0d1b2e]/90
-      p-4
-      backdrop-blur-md
-      transition-all
-      duration-500
-      ${theme?.border ?? "border-cyan-300/40"}
-      ${theme?.glow ?? "shadow-[0_0_40px_rgba(0,229,255,0.14)]"}
-      ${
-        isOver
-          ? "scale-[1.018] bg-[#102840]/95 shadow-[0_0_65px_rgba(0,229,255,0.26)]"
-          : "hover:-translate-y-1 hover:bg-[#102840]/85"
-      }
-    `}
-    style={{
-      animationDelay: `${index * 140}ms`,
-    }}
-  >
-      <div className="pointer-events-none absolute -right-20 -top-20 h-48 w-48 rounded-full bg-cyan-300/10 blur-3xl" />
+  const columnTheme: Record<string, typeof defaultTheme> = {
+    "In Queue": {
+      border: "border-red-400/40",
+      glow: "shadow-[0_0_40px_rgba(255,77,109,0.14)]",
+      accent: "from-red-400/90 via-red-300/35 to-transparent",
+      badge: "bg-red-400/10 text-red-100 border-red-300/25",
+      dot: "bg-red-300",
+    },
+    "In Progress": {
+      border: "border-orange-300/40",
+      glow: "shadow-[0_0_40px_rgba(255,159,28,0.14)]",
+      accent: "from-orange-300/90 via-orange-300/35 to-transparent",
+      badge: "bg-orange-400/10 text-orange-100 border-orange-300/25",
+      dot: "bg-orange-300",
+    },
+    Validation: defaultTheme,
+    Completed: {
+      border: "border-emerald-300/40",
+      glow: "shadow-[0_0_40px_rgba(0,255,153,0.14)]",
+      accent: "from-emerald-300/90 via-emerald-300/35 to-transparent",
+      badge: "bg-emerald-400/10 text-emerald-100 border-emerald-300/25",
+      dot: "bg-emerald-300",
+    },
+  };
 
-      <div className="pointer-events-none absolute -bottom-24 -left-24 h-56 w-56 rounded-full bg-emerald-300/5 blur-3xl" />
+  const theme = columnTheme[String(status)] ?? defaultTheme;
+
+  return (
+    <div
+      ref={setNodeRef}
+      className={`
+        group
+        animated-border
+        neon-pulse
+        fade-up
+        relative
+        h-[calc(100vh-280px)]
+        overflow-hidden
+        rounded-3xl
+        border
+        bg-[#0d1b2e]/90
+        p-3
+        backdrop-blur-md
+        transition-all
+        duration-500
+        ${theme.border}
+        ${theme.glow}
+        ${
+          isOver
+            ? "scale-[1.01] bg-[#102840]/95 shadow-[0_0_55px_rgba(0,229,255,0.22)]"
+            : "hover:-translate-y-1 hover:bg-[#102840]/85"
+        }
+      `}
+      style={{ animationDelay: `${index * 120}ms` }}
+    >
+      <div className="pointer-events-none absolute -right-20 -top-20 h-44 w-44 rounded-full bg-cyan-300/10 blur-3xl" />
 
       <div
         className={`
+          pointer-events-none
           absolute
           left-0
           top-0
@@ -202,20 +161,15 @@ return (
         `}
       />
 
-      <div className="relative z-10 mb-4 flex items-center justify-between">
+      <div className="relative z-10 mb-3 flex items-center justify-between">
         <div>
-          <p className="text-[10px] uppercase tracking-[0.35em] text-white/40">
-            ENGINEERING STATUS
+          <p className="text-[9px] uppercase tracking-[0.32em] text-white/35">
+            Engineering Status
           </p>
 
           <div className="mt-1 flex items-center gap-2">
-            <span
-              className={`breathe h-2.5 w-2.5 rounded-full ${theme.dot}`}
-            />
-
-            <h2 className="text-xl font-black text-white">
-              {status}
-            </h2>
+            <span className={`breathe h-2 w-2 rounded-full ${theme.dot}`} />
+            <h2 className="text-lg font-black text-white">{status}</h2>
           </div>
         </div>
 
@@ -224,9 +178,9 @@ return (
             breathe
             rounded-full
             border
-            px-3
-            py-1
-            text-sm
+            px-2.5
+            py-0.5
+            text-xs
             font-bold
             ${theme.badge}
           `}
@@ -235,38 +189,22 @@ return (
         </span>
       </div>
 
-      <div className="relative z-10 max-h-[calc(100vh-320px)] space-y-3 overflow-y-auto pr-1">
+      <div className="relative z-10 max-h-[calc(100vh-360px)] space-y-2 overflow-y-auto pr-1">
         {tasks.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-white/10 bg-white/[0.03] p-4 text-center text-sm text-white/40">
+          <div className="rounded-2xl border border-dashed border-white/10 bg-white/[0.03] p-4 text-center text-xs text-white/40">
             No Tasks
           </div>
         ) : (
-          tasks.map((task) => (
-            <DraggableCard
-              key={task.id}
-              task={task}
-            />
-          ))
+          tasks.map((task) => <DraggableCard key={task.id} task={task} />)
         )}
       </div>
     </div>
   );
 }
 
-function DraggableCard({
-  task,
-}: {
-  task: EngineeringTask;
-}) {
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    isDragging,
-  } = useDraggable({
-    id: task.id,
-  });
+function DraggableCard({ task }: { task: EngineeringTask }) {
+  const { attributes, listeners, setNodeRef, transform, isDragging } =
+    useDraggable({ id: task.id });
 
   const style = transform
     ? {
@@ -287,8 +225,8 @@ function DraggableCard({
         active:cursor-grabbing
         ${
           isDragging
-            ? "z-50 scale-[1.035] opacity-85 shadow-[0_0_55px_rgba(0,229,255,0.30)]"
-            : "hover:-translate-y-1"
+            ? "z-50 scale-[1.025] opacity-85 shadow-[0_0_45px_rgba(0,229,255,0.26)]"
+            : "hover:-translate-y-0.5"
         }
       `}
     >
