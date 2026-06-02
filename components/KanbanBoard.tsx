@@ -122,15 +122,20 @@ function Column({
     <div
       ref={setNodeRef}
       className={`
-        group animated-border neon-pulse fade-up relative
-        flex flex-col justify-start
-        min-h-[170px]
-        max-h-[calc(100vh-260px)]
-        overflow-hidden rounded-2xl border bg-[#0d1b2e]/90 p-2.5
-        backdrop-blur-md transition-all duration-500
-        ${theme.border}
-        ${theme.glow}
-        ${
+  group relative
+  flex flex-col justify-start
+  min-h-fit
+  max-h-[calc(100vh-260px)]
+  overflow-hidden rounded-2xl border bg-[#0d1b2e]/90 p-2.5
+  backdrop-blur-md transition-all duration-500
+  ${theme.border}
+  ${theme.glow}
+  ${
+    isOver
+      ? "scale-[1.01] bg-[#102840]/95 shadow-[0_0_45px_rgba(0,229,255,0.20)]"
+      : "hover:-translate-y-0.5 hover:bg-[#102840]/85"
+  }
+`}
           isOver
             ? "scale-[1.01] bg-[#102840]/95 shadow-[0_0_45px_rgba(0,229,255,0.20)]"
             : "hover:-translate-y-0.5 hover:bg-[#102840]/85"
