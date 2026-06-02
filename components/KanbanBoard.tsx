@@ -147,8 +147,14 @@ function Column({
   };
 
   const theme =
-    columnTheme[String(status)] ??
-    columnTheme["Validation"];
+  columnTheme[String(status)] ??
+  {
+    border: "border-cyan-300/40",
+    glow: "shadow-[0_0_40px_rgba(0,229,255,0.14)]",
+    accent: "from-cyan-300/90 via-cyan-300/35 to-transparent",
+    badge: "bg-cyan-400/10 text-cyan-100 border-cyan-300/25",
+    dot: "bg-cyan-300",
+  };
 
   return (
     <div
