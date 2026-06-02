@@ -165,7 +165,7 @@ return (
       neon-pulse
       fade-up
       relative
-      min-h-[620px]
+      h-[calc(100vh-240px)]
       overflow-hidden
       rounded-3xl
       border
@@ -235,9 +235,9 @@ return (
         </span>
       </div>
 
-      <div className="relative z-10 max-h-[620px] space-y-3 overflow-y-auto pr-1">
+      <div className="relative z-10 max-h-[calc(100vh-320px)] space-y-3 overflow-y-auto pr-1">
         {tasks.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-white/10 bg-white/[0.03] p-5 text-center text-sm text-white/40">
+          <div className="rounded-2xl border border-dashed border-white/10 bg-white/[0.03] p-4 text-center text-sm text-white/40">
             No Tasks
           </div>
         ) : (
