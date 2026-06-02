@@ -124,7 +124,7 @@ function Column({
       className={`
         group animated-border neon-pulse fade-up relative
         flex flex-col
-        min-h-[550px]
+        min-h-[220px]
         overflow-hidden rounded-3xl border bg-[#0d1b2e]/90 p-3
         backdrop-blur-md transition-all duration-500
         ${theme.border}
@@ -168,7 +168,7 @@ function Column({
         </span>
       </div>
 
-      <div className="relative z-10 flex-1 space-y-2 overflow-y-auto pr-1">
+      <div className="relative z-10 min-h-[80px] space-y-2 overflow-y-auto pr-1">
         {tasks.length === 0 ? (
           <div className="rounded-2xl border border-dashed border-white/10 bg-white/[0.03] p-4 text-center text-xs text-white/40">
             No Tasks
