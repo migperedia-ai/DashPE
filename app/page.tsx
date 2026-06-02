@@ -5,6 +5,20 @@ import { getTasks } from "@/lib/sheets";
 
 export const dynamic = "force-dynamic";
 
+function AutoRefresh() {
+  return (
+    <script
+      dangerouslySetInnerHTML={{
+        __html: `
+          setInterval(function() {
+            window.location.reload();
+          }, 60000);
+        `,
+      }}
+    />
+  );
+}
+
 export default async function Home() {
   let tasks: any[] = [];
   let error = "";
@@ -17,6 +31,8 @@ export default async function Home() {
 
   return (
     <main className="min-h-screen bg-[radial-gradient(circle_at_top,#1e3a8a_0,#020617_45%)] p-6 text-white xl:p-10">
+      <AutoRefresh />
+
       <header className="mb-8 flex flex-col justify-between gap-4 xl:flex-row xl:items-end">
         <div>
           <p className="text-lg font-semibold uppercase tracking-[0.55em] text-cyan-300">PE Visual Management</p>
