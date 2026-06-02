@@ -75,7 +75,7 @@ export function KpiCards({ tasks }: { tasks: EngineeringTask[] }) {
               neon-pulse
               fade-up
               relative
-              h-[120px]
+              min-h-[120px]
               overflow-hidden
               rounded-2xl
               border
@@ -109,7 +109,7 @@ export function KpiCards({ tasks }: { tasks: EngineeringTask[] }) {
 
             <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-white/5 blur-3xl transition-all duration-700 group-hover:bg-white/10" />
 
-            <div className="flex items-center justify-between">
+            <div className="relative z-10 flex items-center justify-between gap-3">
               <p className="text-[10px] uppercase tracking-[0.25em] text-white/60">
                 {card.label}
               </p>
@@ -117,6 +117,7 @@ export function KpiCards({ tasks }: { tasks: EngineeringTask[] }) {
               <div
                 className={`
                   breathe
+                  shrink-0
                   rounded-xl
                   border
                   border-white/10
@@ -131,6 +132,8 @@ export function KpiCards({ tasks }: { tasks: EngineeringTask[] }) {
 
             <p
               className={`
+                relative
+                z-10
                 mt-2
                 text-3xl
                 font-black
@@ -144,7 +147,7 @@ export function KpiCards({ tasks }: { tasks: EngineeringTask[] }) {
               {card.value}
             </p>
 
-            <div className="mt-3 h-1 overflow-hidden rounded-full bg-white/10">
+            <div className="relative z-10 mt-3 h-1 overflow-hidden rounded-full bg-white/10">
               <div
                 className={`
                   h-full
