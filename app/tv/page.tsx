@@ -19,22 +19,22 @@ export default async function TvMode() {
       <div className="h-full p-4">
         <header className="mb-4 flex items-end justify-between gap-4">
           <div>
-            <p className="text-xs uppercase tracking-[0.42em] text-cyan-300">
+            <p className="text-lg font-semibold uppercase tracking-[0.55em] text-cyan-300">
               PE Visual Management
             </p>
 
-            <h1 className="mt-1 text-4xl font-black leading-none">
+            <h1 className="mt-2 text-8xl font-black leading-none tracking-tight">
               Process Engineering Control Task
             </h1>
 
-            <p className="mt-1 max-w-3xl text-xs text-slate-400">
+            <p className="mt-2 max-w-4xl text-lg text-slate-300">
               Visual monitoring of projects, HECN, improvements and engineering actions.
             </p>
           </div>
 
           <a
             href="/"
-            className="rounded-xl border border-white/20 px-4 py-2 text-xs font-bold hover:bg-white/10"
+            className="rounded-xl border border-white/20 px-6 py-3 text-sm font-bold hover:bg-white/10"
           >
             DASHBOARD MODE
           </a>
