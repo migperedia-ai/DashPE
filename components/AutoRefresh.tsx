@@ -6,7 +6,7 @@ export function AutoRefresh() {
   useEffect(() => {
     const interval = setInterval(() => {
       window.location.reload();
-    }, 60000); // 60 segundos
+    }, 60000);
 
     return () => clearInterval(interval);
   }, []);

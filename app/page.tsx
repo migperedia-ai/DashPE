@@ -2,6 +2,7 @@ import { AddTaskForm } from "@/components/AddTaskForm";
 import { KanbanBoard } from "@/components/KanbanBoard";
 import { KpiCards } from "@/components/KpiCards";
 import { getTasks } from "@/lib/sheets";
+import { AutoRefresh } from "@/components/AutoRefresh";
 
 export const dynamic = "force-dynamic";
 
