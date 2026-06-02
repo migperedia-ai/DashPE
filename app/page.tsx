@@ -20,7 +20,7 @@ export default async function Home() {
       <header className="mb-8 flex flex-col justify-between gap-4 xl:flex-row xl:items-end">
         <div>
           <p className="text-lg font-semibold uppercase tracking-[0.55em] text-cyan-300">PE Visual Management</p>
-          <h1 className="mt-2 text-5xl font-black leading-none tracking-tight xl:text-8xl">Process Engineering Control Task</h1>
+          <h1 className="mt-2 text-3xl font-black leading-none tracking-tight xl:text-6xl">Process Engineering Control Task</h1>
           <p className="mt-2 text-lg text-white/75">
             Visual monitoring of projects, HECN, improvements and engineering actions.
           </p>
